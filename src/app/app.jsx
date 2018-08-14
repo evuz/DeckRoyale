@@ -4,7 +4,10 @@ import styled from 'styled-components';
 const Text = styled.p`
   font-family: sans-serif;
   font-size: 24px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
 `;
 
 const Container = styled.div`
@@ -17,6 +20,9 @@ const Container = styled.div`
 
 export const App = () => (
   <Container>
-    <Text>Hello World</Text>
+    <Text>
+      <i className="material-icons">info_outline</i>
+      Hello World
+    </Text>
   </Container>
 );
