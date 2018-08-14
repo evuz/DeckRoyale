@@ -1,0 +1,7 @@
+{
+  "extends": ["airbnb", "eslint-config-prettier"],
+  "parser": "babel-eslint",
+  "rules": {
+    "import/prefer-default-export": "none"
+  }
+}
