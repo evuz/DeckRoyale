@@ -8,5 +8,9 @@ import { App } from './app/app';
 import { firebaseConfig } from './firebase';
 import './assets/reset.css';
 
-firebase.initializeApp(firebaseConfig);
+if (firebase.apps.length) {
+  firebase.app();
+} else {
+  firebase.initializeApp(firebaseConfig);
+}
 ReactDOM.render(<App />, document.getElementById('app'));

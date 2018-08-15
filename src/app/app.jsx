@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import firebase from 'firebase/app';
 
@@ -25,17 +25,72 @@ const Button = styled.button`
   width: 20%;
 `;
 
-function register() {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider);
-}
+const UserImage = styled.img`
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+`;
 
-export const App = () => (
-  <Container>
-    <Text>
-      <i className="material-icons">info_outline</i>
-      Hello World
-    </Text>
-    <Button onClick={register}>Google Sign In</Button>
-  </Container>
-);
+export class App extends Component {
+  state = { user: null };
+  
+  componentDidMount() {
+    this.authListener();
+  }
+
+  componentWillUnmount() {
+    this.authSubscribe();
+  }
+
+  authSubscribe = null;
+  
+  authListener = () => {
+    this.authSubscribe = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const { displayName, email, photoURL } = user;
+        this.setState({
+          user: { displayName, email, photoURL },
+        });
+      } else {
+        this.setState({ user: null });
+      }
+    });
+  };
+
+  googleRegister = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  signOut = () => {
+    firebase.auth().signOut();
+  };
+
+  render() {
+    const { user } = this.state;
+    return (
+      <Container>
+        <Text>
+          <i className="material-icons">info_outline</i>
+          Deck Royale
+        </Text>
+        {!user ? (
+          <Button onClick={this.googleRegister}>Google Sign In</Button>
+        ) : (
+          <Button onClick={this.signOut}>Sign Out</Button>
+        )}
+        {user ? (
+          <Fragment>
+            <UserImage src={user.photoURL} alt="user" />
+            <Text>Name: {user.displayName}</Text> <Text>Email: {user.email}</Text>{' '}
+          </Fragment>
+        ) : null}
+      </Container>
+    );
+  }
+}
