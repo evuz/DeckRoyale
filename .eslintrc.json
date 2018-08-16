@@ -5,6 +5,7 @@
     "browser": true
   },
   "rules": {
-    "import/prefer-default-export": "none"
+    "import/prefer-default-export": "none",
+    "no-underscore-dangle": "off"
   }
 }
