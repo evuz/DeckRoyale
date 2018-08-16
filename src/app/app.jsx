@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 
 import { Login } from './pages/Login';
@@ -7,8 +9,13 @@ import { User } from './pages/User';
 import { PrivateRoute } from './guards/PrivateRoute';
 import { PublicRoute } from './guards/PublicRoute';
 
-export class App extends Component {
-  state = { user: undefined };
+import { signIn, signOut } from './actions/user';
+
+export class _App extends Component {
+  static propTypes = {
+    signIn: PropTypes.func.isRequired,
+    signOut: PropTypes.func.isRequired,
+  };
 
   componentDidMount() {
     this.authListener();
@@ -24,24 +31,31 @@ export class App extends Component {
     this.authSubscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         const { displayName, email, photoURL } = user;
-        this.setState({
-          user: { displayName, email, photoURL },
-        });
+        this.props.signIn({ displayName, email, photoURL });
       } else {
-        this.setState({ user: undefined });
+        this.props.signOut();
       }
     });
   };
 
   render() {
-    const { user } = this.state;
     return (
       <Router>
         <Fragment>
-          <PrivateRoute path="/user" user={user} component={User} />
-          <PublicRoute path="/login" user={user} component={Login} route="/user" />
+          <PrivateRoute path="/user" component={User} />
+          <PublicRoute path="/login" component={Login} route="/user" />
         </Fragment>
       </Router>
     );
   }
 }
+
+const mapDispatchToProps = {
+  signIn,
+  signOut,
+};
+
+export const App = connect(
+  null,
+  mapDispatchToProps,
+)(_App);

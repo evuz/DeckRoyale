@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import firebase from 'firebase/app';
@@ -32,7 +33,7 @@ const UserImage = styled.img`
   border-radius: 50px;
 `;
 
-export class User extends Component {
+class _User extends Component {
   static propTypes = {
     user: PropTypes.any, // eslint-disable-line
   };
@@ -56,3 +57,9 @@ export class User extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ user }) => ({
+  user,
+});
+
+export const User = connect(mapStateToProps)(_User);
