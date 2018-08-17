@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Route, Redirect, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import { User } from '../models/user';
 
 const _PrivateRoute = ({ component: Component, user, ...rest }) => (
   <Route
@@ -21,8 +23,12 @@ const _PrivateRoute = ({ component: Component, user, ...rest }) => (
 );
 
 _PrivateRoute.propTypes = {
-  component: PropTypes.any.isRequired, // eslint-disable-line
-  user: PropTypes.object, // eslint-disable-line
+  component: PropTypes.func.isRequired,
+  user: PropTypes.instanceOf(User),
+};
+
+_PrivateRoute.defaultProps = {
+  user: null,
 };
 
 const mapStateToProps = ({ user }) => ({

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import firebase from 'firebase/app';
 
+import { User as UserModel } from '../models/user';
+
 const Text = styled.p`
   font-family: sans-serif;
   font-size: 24px;
@@ -35,7 +37,11 @@ const UserImage = styled.img`
 
 class _User extends Component {
   static propTypes = {
-    user: PropTypes.any, // eslint-disable-line
+    user: PropTypes.instanceOf(UserModel),
+  };
+
+  static defaultProps = {
+    user: null,
   };
 
   signOut = () => {

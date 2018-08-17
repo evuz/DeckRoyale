@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Route, Redirect, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import { User } from '../models/user';
 
 const _PublicRoute = ({ component: Component, user, route, ...rest }) => (
   <Route
@@ -21,9 +23,13 @@ const _PublicRoute = ({ component: Component, user, route, ...rest }) => (
 );
 
 _PublicRoute.propTypes = {
-  component: PropTypes.any.isRequired, // eslint-disable-line
+  component: PropTypes.func.isRequired,
   route: PropTypes.string.isRequired,
-  user: PropTypes.object, // eslint-disable-line
+  user: PropTypes.instanceOf(User),
+};
+
+_PublicRoute.defaultProps = {
+  user: null,
 };
 
 const mapStateToProps = ({ user }) => ({
