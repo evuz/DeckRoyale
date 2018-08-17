@@ -1,13 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 
-import { Login } from './pages/Login';
-import { User } from './pages/User';
-import { PrivateRoute } from './guards/PrivateRoute';
-import { PublicRoute } from './guards/PublicRoute';
+import { Main } from './pages/Main';
 
 import { signIn, signOut } from './actions/user';
 
@@ -42,8 +39,7 @@ export class _App extends Component {
     return (
       <Router>
         <Fragment>
-          <PrivateRoute path="/user" component={User} />
-          <PublicRoute path="/login" component={Login} route="/user" />
+          <Route path="/" exact component={Main} />
         </Fragment>
       </Router>
     );

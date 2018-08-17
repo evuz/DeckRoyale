@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -15,15 +15,6 @@ const Text = styled.p`
   padding: 12px 0;
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  min-height: 100vh;
-  background-color: lightyellow;
-`;
-
 const Button = styled.button`
   height: 64px;
   width: 20%;
@@ -35,7 +26,7 @@ const UserImage = styled.img`
   border-radius: 50px;
 `;
 
-class _User extends Component {
+class _UserContainer extends Component {
   static propTypes = {
     user: PropTypes.instanceOf(UserModel),
   };
@@ -51,15 +42,11 @@ class _User extends Component {
   render() {
     const { user } = this.props;
     return (
-      <Container>
-        <Text>
-          <i className="material-icons">info_outline</i>
-          Deck Royale
-        </Text>
+      <Fragment>
         <Button onClick={this.signOut}>Sign Out</Button>
         <UserImage src={user.photoURL} alt="user" />
         <Text>Name: {user.displayName}</Text> <Text>Email: {user.email}</Text>{' '}
-      </Container>
+      </Fragment>
     );
   }
 }
@@ -68,4 +55,4 @@ const mapStateToProps = ({ user }) => ({
   user,
 });
 
-export const User = connect(mapStateToProps)(_User);
+export const UserContainer = connect(mapStateToProps)(_UserContainer);
