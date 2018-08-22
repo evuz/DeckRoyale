@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 
 import { Main } from './pages/Main';
+import { ManageDeck } from './pages/ManageDeck';
 
 import { signIn, signOut } from './actions/user';
 
@@ -40,6 +41,7 @@ export class _App extends Component {
       <Router>
         <Fragment>
           <Route path="/" exact component={Main} />
+          <Route path="/deck/:id" exact component={ManageDeck} />
         </Fragment>
       </Router>
     );
