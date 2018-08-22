@@ -6,7 +6,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-import { firebaseConfig } from './firebase';
+import { firebaseConfig } from '../config';
 import { configureStore } from './store';
 import { App } from './app/app';
 import './assets/reset.css';

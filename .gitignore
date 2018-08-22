@@ -6,6 +6,6 @@ dist
 plugins
 platforms
 
-src/firebase.js
+config.js
 
 package-lock.json
