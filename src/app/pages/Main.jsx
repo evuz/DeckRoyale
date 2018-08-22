@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { User } from '../models/user';
-import { UserContainer } from '../containers/User';
 import { LoginContainer } from '../containers/LogIn';
+import { UserDecksContainer } from '../containers/UserDecks';
 
 const Text = styled.p`
   font-family: sans-serif;
@@ -31,7 +31,7 @@ const _Main = ({ user }) => (
       <i className="material-icons">info_outline</i>
       Deck Royale
     </Text>
-    {user ? <UserContainer /> : <LoginContainer />}
+    {user ? <UserDecksContainer /> : <LoginContainer />}
   </Container>
 );
 
